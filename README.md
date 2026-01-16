@@ -23,17 +23,15 @@
 
 ## 🔓 How to Decrypt Your Capsule
 
-When the future arrives (or if you just want to test it), follow these steps to unlock your memories:
+When the future arrives, the application retrieves your key from its **secure internal database** (`capsules.db`).
 
-1.  **Launch the App**: Make sure the server is running (`python app.py`) and go to the home page.
-2.  **Locate the Decrypt Link**: Scroll to the bottom of the page and click the glowing **"DECRYPT EXISTING CAPSULE"** button (or visit `/decrypt`).
-3.  **Upload & Verify**:
-    *   **Upload your `.enc` file**: This is the file you downloaded when you created the capsule.
-    *   **Enter Credentials**: Type in the **Email** you used and the **Capsule ID** (if you have it).
-    *   *Or* **Manual Key**: If you saved your backup key string, you can paste that directly by expanding the "I have my backup key" section.
-4.  **Unlock**: Click **"Decrypt & Restore"**.
-    *   If the Release Date has passed, your message (Video/Audio/Text) will immediately play or display on the screen.
-    *   If the date hasn't passed yet, the system will block the attempt! ⏳
+1.  **Launch the App**: Ensure the server is running.
+2.  **Visit Decrypt Page**: Click **"DECRYPT EXISTING CAPSULE"**.
+3.  **Upload**: Select your encrypted `.enc` file.
+4.  **Authenticate**: Enter your **Email** and **Capsule ID**.
+    *   *Note: The decryption key is fetched automatically from the database matching your credentials.*
+5.  **Unlock**: Click **"Decrypt & Restore"**.
+    *   If the Release Date has passed, your memory will be revealed! 🎥
 
 ---
 
@@ -81,12 +79,5 @@ Want to run this on your own computer? It's designed to be plug-and-play.
 
 ---
 
-## 🛸 Chrome Extension
-This project includes a prototype Chrome Extension!
-1.  Go to `chrome://extensions/`
-2.  Enable "Developer Mode".
-3.  Click "Load Unpacked" and select the `chrome_extension` folder in this repo.
-
----
-
 *Built with Python, Flask, and Stardust.*
+
