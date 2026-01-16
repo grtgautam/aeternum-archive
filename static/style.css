@@ -1,0 +1,634 @@
+:root {
+    --primary-color: #00f2ff;
+    --secondary-color: #ff0055;
+    --glass-bg: rgba(16, 20, 30, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-main: #ffffff;
+    --font-heading: 'Orbitron', sans-serif;
+    --font-body: 'Exo 2', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    color: var(--text-main);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Space Background Effects */
+.stars,
+.twinkling {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.stars {
+    background: #000 url('http://www.script-tutorials.com/demos/216/images/stars.png') repeat top center;
+    z-index: -2;
+}
+
+.twinkling {
+    background: transparent url('http://www.script-tutorials.com/demos/216/images/twinkling.png') repeat top center;
+    z-index: -1;
+    animation: move-twink-back 200s linear infinite;
+    opacity: 0.5;
+}
+
+@keyframes move-twink-back {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: -10000px 5000px;
+    }
+}
+
+/* Warp Speed Effect */
+.warp-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    z-index: 1000;
+    display: none;
+    /* Hidden by default */
+    opacity: 0;
+    transition: opacity 1s;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.warp-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.warp-stars {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 2px;
+    background: transparent;
+    box-shadow:
+        0 0 0 0 white,
+        0 0 0 0 white,
+        0 0 0 0 white;
+    border-radius: 50%;
+    animation: warp 2s infinite linear;
+}
+
+@keyframes warp {
+    0% {
+        box-shadow:
+            0 0 0 0 rgba(255, 255, 255, 0),
+            0 0 0 0 rgba(255, 255, 255, 0),
+            0 0 0 0 rgba(255, 255, 255, 0);
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        box-shadow:
+            -200px -100px 0 2px white,
+            200px -100px 0 2px white,
+            -200px 100px 0 2px white,
+            200px 100px 0 2px white,
+            0 -300px 0 2px white,
+            0 300px 0 2px white;
+        opacity: 1;
+    }
+
+    100% {
+        box-shadow:
+            -400px -200px 0 100px rgba(255, 255, 255, 0),
+            400px -200px 0 100px rgba(255, 255, 255, 0),
+            -400px 200px 0 100px rgba(255, 255, 255, 0),
+            400px 200px 0 100px rgba(255, 255, 255, 0),
+            0 -600px 0 100px rgba(255, 255, 255, 0),
+            0 600px 0 100px rgba(255, 255, 255, 0);
+        transform: translate(-50%, -50%) scale(10);
+    }
+}
+
+.warp-message {
+    z-index: 1001;
+    color: #00f2ff;
+    font-family: var(--font-heading);
+    text-align: center;
+    text-shadow: 0 0 20px #00f2ff;
+    /* Removed simple flash animation to keep text readable */
+}
+
+.console-text {
+    font-family: monospace;
+    color: #00f2ff;
+    text-align: left;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border: 1px solid #00f2ff;
+    width: 300px;
+    /* or auto */
+    box-shadow: 0 0 10px #00f2ff;
+}
+
+
+@keyframes flash {
+    from {
+        opacity: 0.5;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* 3D Planets */
+.planet-container {
+    position: fixed;
+    z-index: -1;
+    perspective: 1000px;
+}
+
+.mars-container {
+    top: 10%;
+    right: 5%;
+    width: 200px;
+    height: 200px;
+}
+
+.earth-container {
+    bottom: 5%;
+    left: 5%;
+    width: 250px;
+    height: 250px;
+}
+
+.planet-3d {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-size: 200% 100%;
+    /* Important for rotation */
+    animation: rotatePlanet 60s linear infinite;
+    box-shadow: inset -20px -20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(255, 255, 255, 0.1);
+    transition: transform 0.5s;
+}
+
+.mars-3d {
+    background-image: url('mars.png');
+    /* Will move file appropriately */
+    box-shadow: inset -20px -20px 50px rgba(0, 0, 0, 0.9), 0 0 50px rgba(255, 70, 0, 0.4);
+}
+
+.earth-3d {
+    background-image: url('earth.png');
+    /* Will move file appropriately */
+    box-shadow: inset -30px -30px 60px rgba(0, 0, 0, 0.9), 0 0 50px rgba(0, 100, 255, 0.3);
+}
+
+@keyframes rotatePlanet {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+
+    /* Move texture */
+}
+
+.planet-container:hover .planet-3d {
+    transform: scale(1.1);
+}
+
+/* UI Layout */
+.container {
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+header h1 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    letter-spacing: 4px;
+    text-shadow: 0 0 10px var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #aaa;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.tab-btn {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: #888;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    transition: all 0.3s;
+}
+
+.tab-btn.active,
+.tab-btn:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+}
+
+/* Input Sections */
+.input-section {
+    display: none;
+    margin-bottom: 1.5rem;
+}
+
+.input-section.active {
+    display: block;
+}
+
+/* Video Preview */
+.preview-container {
+    width: 100%;
+    height: 300px;
+    background: #000;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #333;
+}
+
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scaleX(-1);
+    /* Mirror effect */
+}
+
+.overlay-rec {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: var(--secondary-color);
+    font-weight: bold;
+    display: none;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.action-btn {
+    background: var(--primary-color);
+    color: #000;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: var(--font-heading);
+}
+
+.action-btn.stop {
+    background: var(--secondary-color);
+    color: #fff;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.action-btn.stop:enabled {
+    opacity: 1;
+    cursor: pointer;
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #444;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 10px;
+    resize: none;
+    font-family: var(--font-body);
+}
+
+/* Form Styles */
+.meta-data {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    border-top: 1px solid #333;
+    padding-top: 1.5rem;
+}
+
+.form-group {
+    flex: 1;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #444;
+    padding: 0.8rem;
+    color: #fff;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.launch-btn {
+    width: 100%;
+    margin-top: 1.5rem;
+    background: linear-gradient(45deg, var(--primary-color), #00aeff);
+    border: none;
+    padding: 1rem;
+    color: #000;
+    font-weight: bold;
+    font-size: 1.1rem;
+    font-family: var(--font-heading);
+    cursor: pointer;
+    border-radius: 5px;
+    transition: transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.launch-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px var(--primary-color);
+}
+
+#timer,
+#audio-timer {
+    font-family: monospace;
+    color: var(--primary-color);
+    margin-top: 5px;
+}
+
+.warnings {
+    background: rgba(255, 165, 0, 0.15);
+    border: 1px solid orange;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    text-align: left;
+    font-size: 0.9rem;
+    color: #ffdcb0;
+}
+
+.warnings ul {
+    margin: 0.5rem 0 0 1.5rem;
+    padding: 0;
+}
+
+.warnings li {
+    margin-bottom: 0.3rem;
+}
+
+footer {
+    margin-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.decrypt-btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    text-decoration: none;
+    border-radius: 30px;
+    font-family: var(--font-heading);
+    transition: all 0.3s;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.decrypt-btn:hover {
+    background: var(--primary-color);
+    color: #000;
+    box-shadow: 0 0 20px var(--primary-color);
+}
+
+.alert.error {
+    background: rgba(255, 0, 85, 0.2);
+    border: 1px solid var(--secondary-color);
+    padding: 1rem;
+    color: #ffcccc;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+margin: 1rem 0;
+}
+
+/* --- FUTURISTIC HUD ELEMENTS --- */
+
+/* Scanline Overlay */
+body::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 100;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* Glass Panel HUD Borders */
+.glass-panel {
+    position: relative;
+    border: 1px solid rgba(0, 242, 255, 0.3);
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.1), inset 0 0 20px rgba(0, 242, 255, 0.05);
+}
+
+.glass-panel::before,
+.glass-panel::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary-color);
+    transition: all 0.3s;
+}
+
+.glass-panel::before {
+    top: -2px;
+    left: -2px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.glass-panel::after {
+    bottom: -2px;
+    right: -2px;
+    border-left: none;
+    border-top: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        margin-top: 1rem;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+        line-height: 1.2;
+    }
+
+    .subtitle {
+        font-size: 0.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Move planets way back to avoid text overlap */
+    .planet-container {
+        opacity: 0.4;
+        transform: scale(0.5);
+    }
+
+    .mars-container {
+        top: 2%;
+        right: -40%;
+    }
+
+    .earth-container {
+        bottom: 2%;
+        left: -40%;
+    }
+
+    .glass-panel {
+        padding: 1.5rem;
+    }
+
+    /* Stack tabs nicely */
+    .tabs {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .tab-btn {
+        font-size: 1rem;
+        padding: 0.8rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Stack controls for recording */
+    .controls {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .action-btn {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .meta-data {
+        flex-direction: column;
+        gap: 1.2rem;
+    }
+
+    textarea {
+        height: 150px;
+        /* More space for text */
+        font-size: 1rem;
+    }
+
+    .launch-btn {
+        font-size: 1.2rem;
+        padding: 1.2rem;
+    }
+
+    .decrypt-btn {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .warnings {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Decrypt Capsule | Chronos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;400;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+
+    <div class="container singleing">
+        <header>
+            <h1>RETRIEVE MEMORY</h1>
+            <a href="/" class="back-link">← Return to Launch</a>
+        </header>
+
+        <main class="glass-panel">
+            {% if error %}
+            <div class="alert error">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            {% if content is not none %}
+            <div class="success-content">
+                <h2>Capsule Opened</h2>
+                {% if is_text %}
+                <div class="text-reveal">
+                    <pre>{{ content }}</pre>
+                </div>
+                {% else %}
+                <p>Binary Video/Audio content is being downloaded or played...</p>
+                {% endif %}
+            </div>
+            {% else %}
+            <form action="/decrypt" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>1. Upload Capsule File (.enc)</label>
+                    <input type="file" name="file" required accept=".enc">
+                </div>
+
+                <div class="divider">AND</div>
+
+                <div class="form-group">
+                    <label>2. Verify Identity</label>
+                    <input type="email" name="email" placeholder="Your Email">
+                    <input type="number" name="capsule_id" placeholder="Capsule ID (from filename)">
+                </div>
+
+                <div class="divider">OR (If you have key)</div>
+
+                <div class="form-group">
+                    <label>Manual Key Entry</label>
+                    <input type="text" name="manual_key" placeholder="Fernet Key String">
+                </div>
+
+                <button type="submit" class="launch-btn">DECRYPT</button>
+            </form>
+            {% endif %}
+        </main>
+    </div>
+</body>
+
+</html>

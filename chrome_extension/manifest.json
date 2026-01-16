@@ -1,0 +1,13 @@
+{
+    "manifest_version": 3,
+    "name": "Aeternum Archive",
+    "version": "1.0",
+    "description": "Send messages to your future self.",
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": "icon.png"
+    },
+    "permissions": [
+        "activeTab"
+    ]
+}

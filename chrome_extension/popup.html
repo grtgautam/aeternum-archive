@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Aeternum Archive</title>
+    <style>
+        body {
+            width: 400px;
+            height: 600px;
+            margin: 0;
+            padding: 0;
+            background: #000;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+      Since the app requires complex Python encryption backend, 
+      the extension currently acts as a portal to the local server.
+      To make it fully standalone relative to the backend would require
+      re-writing the encryption logic in JS (SubtleCrypto).
+      For now, we embed the view or link to it.
+    -->
+    <iframe src="http://127.0.0.1:5000"></iframe>
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronos Capsule | Message to Future</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Google Fonts for specific aesthetic -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;400;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+
+    <!-- Warp Speed Overlay -->
+    <div id="warp-overlay" class="warp-overlay">
+        <div class="warp-stars"></div>
+        <div class="warp-message">
+            <h2 id="warp-title">ENGAGING JUMP DRIVE...</h2>
+            <div id="warp-log" class="console-text"></div>
+        </div>
+    </div>
+
+    <!-- 3D Planets -->
+    <div class="planet-container mars-container">
+        <div class="planet-3d mars-3d"></div>
+    </div>
+    <div class="planet-container earth-container">
+        <div class="planet-3d earth-3d"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>AETERNUM ARCHIVE</h1>
+            <p class="subtitle">PROTOCOL: SECURE YOUR LEGACY ACROSS TIME</p>
+        </header>
+
+        <main class="glass-panel">
+            <!-- HUD Corners (visually handled by CSS pseudo-elements, but adding a glow container) -->
+            <div class="hud-glow"></div>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('video')">Video Log</button>
+                <button class="tab-btn" onclick="switchTab('audio')">Audio Log</button>
+                <button class="tab-btn" onclick="switchTab('text')">Text Log</button>
+            </div>
+
+            <div id="video-section" class="input-section active">
+                <div class="preview-container">
+                    <video id="video-preview" autoplay muted playsinline></video>
+                    <div class="overlay-rec" id="rec-indicator">REC ●</div>
+                </div>
+                <div class="controls">
+                    <button id="start-video" class="action-btn">Start Recording</button>
+                    <button id="stop-video" class="action-btn stop" disabled>Stop</button>
+                </div>
+                <!-- Countdown / Timer -->
+                <div id="timer">00:00 / 10:00</div>
+            </div>
+
+            <div id="audio-section" class="input-section">
+                <div class="audio-visualizer">
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                </div>
+                <div class="controls">
+                    <button id="start-audio" class="action-btn">Start Recording</button>
+                    <button id="stop-audio" class="action-btn stop" disabled>Stop</button>
+                </div>
+                <div id="audio-timer">00:00 / 10:00</div>
+            </div>
+
+            <div id="text-section" class="input-section">
+                <textarea id="message-text" placeholder="Write your message for the future..."></textarea>
+            </div>
+
+            <form id="capsule-form" action="/encrypt" method="POST" enctype="multipart/form-data">
+                <div class="meta-data">
+                    <div class="form-group">
+                        <label>Your Contact (Email)</label>
+                        <input type="email" name="email" required placeholder="explorer@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Open Date</label>
+                        <input type="date" name="release_date" required id="date-picker">
+                    </div>
+                </div>
+
+                <!-- Hidden inputs to hold the blob data -->
+                <input type="file" name="file" id="blob-file" style="display: none;">
+                <input type="hidden" name="text_message" id="hidden-text">
+
+                <div class="warnings">
+                    <p>⚠️ <strong>IMPORTANT:</strong></p>
+                    <ul>
+                        <li>Your <strong>Email</strong> is required to unlock this capsule in the future. Do not forget
+                            it!</li>
+                        <li><strong>Do NOT rename</strong> the downloaded file (`.enc`). It contains your Capsule ID.
+                        </li>
+                    </ul>
+                </div>
+
+                <button type="submit" class="launch-btn" id="launch-btn">
+                    <span class="rocket-icon">🚀</span> ENCRYPT & LAUNCH
+                </button>
+            </form>
+
+            <div id="status-msg"></div>
+        </main>
+
+        <footer>
+            <a href="/decrypt" class="decrypt-btn">🔓 Decrypt Existing Capsule</a>
+        </footer>
+    </div>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
